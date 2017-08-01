@@ -29,9 +29,16 @@ export default class GameState {
       if (this.players.length === 2) {
           this.whoseTurn = this.players[Math.floor(Math.random() * 2)];
       }
+      let token = crypto.randomBytes(64).toString('hex');
+      TOKENS.push(token);
+      return token;
     }
 
     addMove (turn) {
+      let { token } = turn;
+      if (!token || TOKENS[this.players.indexOf(this.whoseTurn)] !== token) {
+          throw new Error('Invalid turn: it is not your turn');
+      }
         let { move } = turn;
         if (isNaN(+move) || move < 0 || move > 8) {
             throw new Error('Invalid turn: move should be a number from 0 to 8');

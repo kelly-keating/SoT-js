@@ -26,8 +26,8 @@ app.post('/join-game', (req, res) => {
     let { name, symbol } = req.body;
 
     try {
-        gameState.addPlayer({ name, symbol });
-        res.status(200).end();
+      let token = gameState.addPlayer({ name, symbol });
+      res.status(200).json({ token });
     } catch (e) {
         let { message } = e;
         res.status(400).json({ message });
@@ -35,10 +35,10 @@ app.post('/join-game', (req, res) => {
 });
 
 app.post('/take-turn', (req, res) => {
-    let { move } = req.body;
+  let { move, token } = req.body;
     try {
-        gameState.addMove({ move });
-        res.status(200).end();
+      gameState.addMove({ move, token });
+      res.status(200).end();
     } catch (e) {
         let { message } = e;
         res.status(400).json({ message });
