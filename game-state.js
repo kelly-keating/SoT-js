@@ -1,5 +1,8 @@
 import crypto from 'crypto';
 
+import WinChecker from './win-checker';
+let winChecker = new WinChecker();
+
 const TOKENS = [];
 
 export default class GameState {
@@ -48,7 +51,18 @@ export default class GameState {
         }
         if (this.moves.length < 9) {
             this.moves.push(move);
+
         }
-        this.whoseTurn = this.players.find(player => player !== this.whoseTurn);
+        let win = winChecker.checkWin(this);
+        if (!win && this.moves.length === 9) {
+          this.winner = null;
+          this.whoseTurn = null;
+        }
+        if (win) {
+            this.winner = this.whoseTurn;
+            this.whoseTurn = null;
+        } else {
+            this.whoseTurn = this.players.find(player => player !== this.whoseTurn);
+        }
     }
 }
