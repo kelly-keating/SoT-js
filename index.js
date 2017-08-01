@@ -11,6 +11,7 @@ const server = app.listen(3000, () => {
 });
 
 app.use(bodyParser.json());
+app.use(express.static('client'));
 
 // ROUTES
 
