@@ -1,3 +1,4 @@
+
 class TicTacToe extends React.Component {
   constructor () {
       super();
@@ -31,6 +32,12 @@ class TicTacToe extends React.Component {
         let gameIsDrawn = gameIsFull && !gameState.whoseTurn && !gameState.winner;
         if (!token && !gameIsFull) {
             return <JoinGame onJoinGame={token => this.setToken(token)}/>
+        }
+        if (token && waitingForPlayer) {
+            return <h2>Waiting for player...</h2>
+        }
+        if (gameIsUnderway) {
+            return <Board token={token} gameState={gameState}></Board>
         }
     }
 }

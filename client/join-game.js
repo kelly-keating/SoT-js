@@ -27,7 +27,14 @@ class JoinGame extends React.Component {
             body: JSON.stringify(this.state)
         })
         .then(response => response.json())
-        .then(data => this.props.onJoinGame(data.token));
+        .then(data => {
+            let { message, token } = data;
+            if (message) {
+                alert(message);
+            } else {
+                this.props.onJoinGame(token)
+            }
+        });
     }
     render () {
         return (
