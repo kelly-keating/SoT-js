@@ -23,15 +23,24 @@ app.get('/game-state', (req, res) => {
 });
 
 app.post('/join-game', (req, res) => {
-    console.log(req.body);
     let { name, symbol } = req.body;
-    gameState.addPlayer({ name, symbol });
-    res.status(200).end();
+
+    try {
+        gameState.addPlayer({ name, symbol });
+        res.status(200).end();
+    } catch (e) {
+        let { message } = e;
+        res.status(400).json({ message });
+    }
 });
 
 app.post('/take-turn', (req, res) => {
-    console.log(req.body);
     let { move } = req.body;
-    gameState.addMove({ move });
-    res.status(200).end();
+    try {
+        gameState.addMove({ move });
+        res.status(200).end();
+    } catch (e) {
+        let { message } = e;
+        res.status(400).json({ message });
+    }
 });
