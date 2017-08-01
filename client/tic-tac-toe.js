@@ -39,6 +39,12 @@ class TicTacToe extends React.Component {
         if (gameIsUnderway) {
             return <Board token={token} gameState={gameState}></Board>
         }
+        if (gameIsWon) {
+            return <h2>{gameState.winner.name} won!</h2>
+        }
+        if (gameIsDrawn) {
+            return <h2>Draw!</h2>
+        }
     }
 }
 window.TicTacToe = TicTacToe;
